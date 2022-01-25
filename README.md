@@ -1,5 +1,11 @@
 # handy-google-colab
-This repository provides a set of scripts and notebooks which enable access of google colab from a local machine. The main solution was provided in a [forum post](https://discuss.pytorch.org/t/using-pycharm-to-debug-pytorch-model-on-gce-aws-or-azure/46212/4) and in accompanying [repository](https://github.com/wojtekcz/ml_seminars/tree/master/demo_colab_ssh_access) that contains a tutorial notebook on how to do the stuff (in polish). Here I did a restructure and simplification of the code using a set of scripts.
+This repository provides a set of scripts and notebooks which enable access of google colab from a local machine using SSH. An additional, although straightforward step is to configure an IDE to use a remote python interpreter  The main solution was provided in a [forum post](https://discuss.pytorch.org/t/using-pycharm-to-debug-pytorch-model-on-gce-aws-or-azure/46212/4) and in accompanying [repository](https://github.com/wojtekcz/ml_seminars/tree/master/demo_colab_ssh_access) that contains a tutorial notebook on how to do the stuff (in polish). Here I did a restructure and simplification of the code using a set of scripts.
+
+A relevant repository is [colab-ssh](https://github.com/WassimBenzarti/colab-ssh) which is based on the same principle to connect to the colab, however it utilizes cloudflared for this stuff. Apart from using a public service there is also a [self-hosted solution](https://github.com/toshichi/google_colab_ssh) which I will investigate and integrate later .
+
+
+## Prerequisites
+The following steps should work for Linux, Windows, macOS. For Windows you need also to have OpenSSH installed as shown in a [relevant guide](https://phoenixnap.com/kb/generate-ssh-key-windows-10).
 
 ## Installation steps
 
@@ -25,3 +31,7 @@ Second we need to keep somewhere the configuration files and the keys. I choose 
     `<google_drive_root>/colab_data/tunnel_options`
 2. Upload the private and public keys in this folder
 3. 
+   
+## Disclaimer
+I don't know if such Google Colab access violates any terms of use of the service.
+
