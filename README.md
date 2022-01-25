@@ -1,7 +1,9 @@
 # handy-google-colab
-This repository provides a set of scripts and notebooks which enable access of google colab from a local machine using SSH. An additional, although straightforward step is to configure an IDE to use a remote python interpreter  The main solution was provided in a [forum post](https://discuss.pytorch.org/t/using-pycharm-to-debug-pytorch-model-on-gce-aws-or-azure/46212/4) and in accompanying [repository](https://github.com/wojtekcz/ml_seminars/tree/master/demo_colab_ssh_access) that contains a tutorial notebook on how to do the stuff (in polish). Here I did a restructure and simplification of the code using a set of scripts.
+This repository provides a set of scripts and notebooks which enable access of google colab from a local machine using SSH. An additional, although straightforward step is to configure an IDE to use a remote python interpreter. The guide was presented in a [forum post](https://discuss.pytorch.org/t/using-pycharm-to-debug-pytorch-model-on-gce-aws-or-azure/46212/4) and in accompanying [repository](https://github.com/wojtekcz/ml_seminars/tree/master/demo_colab_ssh_access) that contains a tutorial notebook on how to do the stuff (in polish). Here I did a restructure and simplification of the code using a set of scripts.
 
-A relevant repository is [colab-ssh](https://github.com/WassimBenzarti/colab-ssh) which is based on the same principle to connect to the colab, however it utilizes cloudflared for this stuff. Apart from using a public service there is also a [self-hosted solution](https://github.com/toshichi/google_colab_ssh) which I will investigate and integrate later .
+A relevant repository is [colab-ssh](https://github.com/WassimBenzarti/colab-ssh) which is based on the same principle to connect to the colab, however it utilizes cloudflared for this stuff. Apart from using a public service there are also a self-hosted solutions which I will investigate and integrate later:
+- [A curated list about tunneling options](https://github.com/anderspitman/awesome-tunneling)
+- [SSH to google colab using frp](https://github.com/toshichi/google_colab_ssh) 
 
 
 ## Prerequisites
@@ -17,7 +19,7 @@ First we need to create and configure an account in a port forwarding service li
    - The configuration name is fixed as 'first'
    - Download the private key. It's name is in the form <username>.first.pem
 3. Create a [new mapping](https://portmap.io/mappings)
-   - Leave everything as is and fill a port number to the field Port on your PC. For simplicity I choose the same port as the above.
+   - Leave everything as is and fill a port number to the field "Port on your PC". For simplicity I choose the same port as the above.
    - Save the mapping and keep somewhere the rule, which should be in the form:\
       `tcp://<username>-<remote_port>.portmap.host:<remote_port> => <local_port>`
 4. Generate a corresponding public key for the downloaded private key with the following command:\
@@ -30,8 +32,5 @@ Second we need to keep somewhere the configuration files and the keys. I choose 
 1. Create a desired folder structure in google drive. For example:\
     `<google_drive_root>/colab_data/tunnel_options`
 2. Upload the private and public keys in this folder
-3. 
+3. Upload a mapping_config.json file containing the port mapping information. A template can be found in this repo.
    
-## Disclaimer
-I don't know if such Google Colab access violates any terms of use of the service.
-
