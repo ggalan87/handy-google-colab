@@ -1,0 +1,19 @@
+{
+    "tunnel_options":
+    {
+        "service_url": "user-12345.portmap.host",
+        "service_port": 12345,
+        "local_port": 12345
+    },
+    "python_packages": 
+    [
+        "glances",
+        "captum"
+    ],
+    "os_packages":
+    [
+        "tmux",
+        "mc",
+        "htop"
+    ]
+}
