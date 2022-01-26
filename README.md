@@ -32,5 +32,5 @@ Second we need to keep somewhere the configuration files and the keys. I choose 
 1. Create a desired folder structure in google drive. For example:\
     `<google_drive_root>/colab_data/tunnel_options`
 2. Upload the private and public keys in this folder
-3. Upload a mapping_config.json file containing the port mapping information. A template can be found in this repo.
+3. Upload a user_config.json file containing the port mapping information. A template can be found in this repo.
    
