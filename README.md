@@ -1,5 +1,5 @@
 # handy-google-colab
-This repository provides a set of scripts and notebooks which enable access of google colab from a local machine using SSH. An additional, although straightforward step is to configure an IDE to use a remote python interpreter. The guide was presented in a [forum post](https://discuss.pytorch.org/t/using-pycharm-to-debug-pytorch-model-on-gce-aws-or-azure/46212/4) and in accompanying [repository](https://github.com/wojtekcz/ml_seminars/tree/master/demo_colab_ssh_access) that contains a tutorial notebook on how to do the stuff (in polish). Here I did a restructure and simplification of the code using a set of scripts.
+This repository provides a library and sample notebook which enable access of google colab from a local machine using SSH. An additional, although straightforward step is to configure an IDE to use a remote python interpreter. The guide was presented in a [forum post](https://discuss.pytorch.org/t/using-pycharm-to-debug-pytorch-model-on-gce-aws-or-azure/46212/4) and in accompanying [repository](https://github.com/wojtekcz/ml_seminars/tree/master/demo_colab_ssh_access) that contains a tutorial notebook on how to do the stuff (in polish). Here I did a restructure and simplification of the code using a set of scripts.
 
 A relevant and most complete repository is [colab-ssh](https://github.com/WassimBenzarti/colab-ssh) which is based on SSH tunneling to connect to the colab, however it utilizes cloudflared. Apart from using a public service there are also a self-hosted solutions which I will investigate and integrate later:
 - [A curated list about tunneling options](https://github.com/anderspitman/awesome-tunneling)
@@ -35,6 +35,15 @@ Second we need to keep somewhere the configuration files and the keys. I choose 
 2. Upload the private and public keys in this folder
 3. Upload a user_config.json file containing the port mapping information. A template can be found in this repo.
 
-### Usage
-TODO
+## Usage
+A sample notebook which showcases the setup of the SSH tunnel is included in [docs](docs). You can also click on the following button to directly test it:
+
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ggalan87/handy-google-colab/blob/master/docs/handy_colab.ipynb)
    
+### Connect using terminal
+The notebook outputs the command on how to connect to the VM using SSH.
+
+### Connect using PyCharm
+Instructions on how to setup PyCharm for connecting to the interpreter are shown in the relevant [documentation](https://www.jetbrains.com/help/pycharm/configuring-remote-interpreters-via-ssh.html#ssh).
+
+During configuring the server you have to put the hostname and the port (same as in user_config.json) and root as user. Instead of giving a password we point to the .pem private key in our local machine. The correct interpreter which we need to select is in `/usr/local/bin/python` as the `/usr/bin/python` is for python2.
