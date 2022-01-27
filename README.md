@@ -41,7 +41,7 @@ A sample notebook which showcases the setup of the SSH tunnel is included in [do
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ggalan87/handy-google-colab/blob/master/docs/handy_colab.ipynb)
    
 ### Connect using terminal
-The notebook outputs the command on how to connect to the VM using SSH.
+The above notebook outputs the command on how to connect to the VM using SSH.
 
 ### Connect using PyCharm
 Instructions on how to setup PyCharm for connecting to the interpreter are shown in the relevant [documentation](https://www.jetbrains.com/help/pycharm/configuring-remote-interpreters-via-ssh.html#ssh).
