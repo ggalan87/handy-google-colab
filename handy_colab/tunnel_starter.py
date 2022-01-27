@@ -104,7 +104,7 @@ def setup_environment(gdrive_folder: str):
     if not tunnel_options_path.exists():
         raise RuntimeError(f'Specified tunnel options path does not exist {tunnel_options_path}')
 
-    config_file_path = tunnel_options_path / 'config.json'
+    config_file_path = tunnel_options_path / 'user_config.json'
     if not config_file_path.exists():
         raise RuntimeError(f'Config file does not exist {config_file_path}')
 
