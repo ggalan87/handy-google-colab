@@ -3,6 +3,7 @@ import subprocess
 from pathlib import Path
 import json
 import shutil
+import shlex
 from google.colab import drive
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.serialization import load_pem_private_key, load_ssh_public_key
@@ -138,12 +139,13 @@ def start_tunnel(gdrive_folder: str):
     print(f'Tunnel will run now. Use the following command to connect:\n{local_cmd}\n'
           f'\nPut the correct location of the private key if not run in the same folder.')
 
-    # ssh tunnel start
-    subprocess.run([
-        'ssh',
-        '-oStrictHostKeyChecking=no',
-        '-oUserKnownHostsFile=/dev/null',
-        '-i', '/root/.ssh/private_key.pem',
-        '-f', '-R', f'{service_port}:localhost:22',
-        f'{service_url}', '-N'
-    ])
+    # obtain the username from the name of th key, which is the filename except .pem
+    service_username = private_key_name.rsplit('.', 1)[0]
+
+    cmd = f'ssh -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -i /root/.ssh/private_key.pem -f -R' \
+          f' {service_port}:localhost:22 {service_username}@{service_url} -N'
+
+    # ssh tunnel start (in background)
+    # TODO: Use something more robust for monitoring, such as https://gist.github.com/carlohamalainen/3803816
+    subprocess.run(shlex.split(cmd))
+
