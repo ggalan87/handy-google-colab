@@ -5,6 +5,7 @@ A relevant and most complete repository is [colab-ssh](https://github.com/Wassim
 - [A curated list about tunneling options](https://github.com/anderspitman/awesome-tunneling)
 - [SSH to google colab using frp](https://github.com/toshichi/google_colab_ssh) 
 
+Another interesting project is [colabcode](https://github.com/abhishekkrthakur/colabcode) which runs code-server (VSCode in browser) on Google Colab and Kaggle Notebooks.
 
 ## Prerequisites
 The following steps should work for Linux, Windows, macOS. For Windows you need also to have OpenSSH installed as shown in a [relevant guide](https://phoenixnap.com/kb/generate-ssh-key-windows-10).
@@ -33,4 +34,7 @@ Second we need to keep somewhere the configuration files and the keys. I choose 
     `<google_drive_root>/colab_data/tunnel_options`
 2. Upload the private and public keys in this folder
 3. Upload a user_config.json file containing the port mapping information. A template can be found in this repo.
+
+### Usage
+TODO
    
