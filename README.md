@@ -18,7 +18,7 @@ First we need to create and configure an account in a port forwarding service li
 1. Create & login to an account in [portmap.io](https://portmap.io)
 2. Create a [new configuration](https://portmap.io/configs)
    - The configuration name is fixed as 'first'
-   - Download the private key. It's name is in the form <username>.first.pem
+   - Download the private key. It's name is in the form `username.first.pem`
 3. Create a [new mapping](https://portmap.io/mappings)
    - Leave everything as is and fill a port number to the field "Port on your PC". For simplicity I choose the same port as the above.
    - Save the mapping and keep somewhere the rule, which should be in the form:\
