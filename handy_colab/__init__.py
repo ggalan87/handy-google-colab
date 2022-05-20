@@ -1,5 +1,6 @@
-from handy_colab.tunnel_starter import start_tunnel
+from handy_colab.tunnel_starter import FRPTunnel, PortmapTunnel
 
 __all__ = [
-    'start_tunnel'
+    'FRPTunnel',
+    'PortmapTunnel'
 ]
