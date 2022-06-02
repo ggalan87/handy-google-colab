@@ -5,8 +5,12 @@ import json
 import configparser
 from abc import abstractmethod
 from collections import namedtuple
-import shutil
 import shlex
+import requests
+import tarfile
+import io
+import shutil
+from typing import Optional
 from google.colab import drive
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.serialization import load_pem_private_key, load_ssh_public_key
@@ -169,17 +173,10 @@ class FRPTunnel(GenericTunnel):
     def _setup_environment(self, gdrive_folder: str):
         super()._setup_environment(gdrive_folder)
 
-        # Download and extract latest release of frp. Snippet from:
-        # https://gist.github.com/steinwaywhw/a4cd19cda655b8249d908261a62687f8?permalink_comment_id=3868412#gistcomment-3868412
+        frp_path = self.download_frp('/root')
 
-        # Create directory for frp
-        frp_path = Path('/root/frp')
-        frp_path.mkdir(exist_ok=True)
-
-        self.run_raw(
-            'curl -L -s $(curl -L -s https://api.github.com/repos/fatedier/frp/releases/latest | grep -o -E '
-            '"https://(.*)frp_(.*)_linux_amd64.tar.gz") | tar xvz -C /root/frp --strip-components=1')
-
+        if frp_path is None:
+            return
 
         # Setup frpc.ini from existing config options
         self._frpc_ini_path = frp_path / 'frpc.ini'
@@ -196,3 +193,32 @@ class FRPTunnel(GenericTunnel):
     def start_tunnel(self):
         cmd = f'./frp/frpc -c {self._frpc_ini_path}'
         self.run_raw(cmd)
+
+    def download_frp(self, output_path) -> Optional[Path]:
+        frp_releases_url = 'https://api.github.com/repos/fatedier/frp/releases/latest'
+        response = requests.get(frp_releases_url)
+        data = json.loads(response.text)
+        latest_release_url = None
+        for asset in data['assets']:
+            if 'linux_amd64' in asset['name']:
+                latest_release_url = asset['browser_download_url']
+
+        download_path = Path(output_path)
+        frp_path = download_path / 'frp'
+
+        # Cleanup existing
+        shutil.rmtree(frp_path, ignore_errors=True)
+
+        if latest_release_url is None:
+            return None
+
+        response = requests.get(latest_release_url)
+        frp_file = tarfile.open(fileobj=io.BytesIO(response.content), mode="r|gz")
+        frp_file.extractall(download_path)
+
+        # Rename to simply frp
+        for p in download_path.iterdir():
+            if 'frp' in p.name:
+                p.rename('frp')
+
+        return frp_path
