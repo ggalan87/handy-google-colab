@@ -219,6 +219,6 @@ class FRPTunnel(GenericTunnel):
         # Rename to simply frp
         for p in download_path.iterdir():
             if 'frp' in p.name:
-                p.rename('frp')
+                p.rename(frp_path)
 
         return frp_path
