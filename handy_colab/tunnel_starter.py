@@ -183,9 +183,9 @@ class FRPTunnel(GenericTunnel):
         config = configparser.ConfigParser()
         config.read(self._frpc_ini_path)
         config.set('common', 'server_addr', self._service_url)
-        config.set('common', 'server_port', self._service_port)
+        config.set('common', 'server_port', str(self._service_port))
         # kind of misleading but by local_port I mean the port local to the colab machine that accepts remote connection
-        config.set('ssh', 'remote_port', self._local_port)
+        config.set('ssh', 'remote_port', str(self._local_port))
 
         with open(self._frpc_ini_path, 'w') as configfile:
             config.write(configfile)
