@@ -191,7 +191,7 @@ class FRPTunnel(GenericTunnel):
             config.write(configfile)
 
     def start_tunnel(self):
-        cmd = f'./frp/frpc -c {self._frpc_ini_path}'
+        cmd = f'/root/frp/frpc -c {self._frpc_ini_path}'
         self.run_raw(cmd)
 
     def download_frp(self, output_path) -> Optional[Path]:
