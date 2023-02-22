@@ -135,12 +135,16 @@ class GenericTunnel:
         drive_path = Path(mount_dir)
         drive_path.mkdir(exist_ok=True)
 
-        self.run_raw(f'nohup rclone --vfs-cache-mode writes mount onedrive: {mount_dir} &')
+        self.run_raw_background(f'rclone --vfs-cache-mode writes mount onedrive: {mount_dir}')
 
 
     @staticmethod
     def run_raw(cmd: str):
         subprocess.run(shlex.split(cmd))
+
+    @staticmethod
+    def run_raw_background(cmd: str):
+        subprocess.Popen(shlex.split(cmd), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
     @staticmethod
     def update_os():
