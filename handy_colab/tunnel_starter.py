@@ -52,6 +52,8 @@ class GenericTunnel:
         self._service_port = config['tunnel_options']['service_port']
         self._local_port = config['tunnel_options']['local_port']
 
+        self._setup_onedrive_mount()
+
     def _setup_ssh(self) -> Path:
         def check_load_public_key(path: Path):
             try:
@@ -116,6 +118,25 @@ class GenericTunnel:
         private_key_pem.chmod(0o600)
 
         return private_key_path
+
+    def _setup_onedrive_mount(self):
+        rclone_conf_path = self._tunnel_options_path / 'rclone.conf'
+        if not rclone_conf_path.exists():
+            return
+
+        rclone_dir = Path('/root/.config/rclone')
+        rclone_dir.mkdir(parents=True, exist_ok=True)
+
+        # Copy rclone config to the directory
+        shutil.copyfile(rclone_conf_path, rclone_dir)
+
+        # Onedrive mount
+        mount_dir = '/content/onedrive'
+        drive_path = Path(mount_dir)
+        drive_path.mkdir(exist_ok=True)
+
+        self.run_raw(f'nohup rclone --vfs-cache-mode writes mount onedrive: {mount_dir} &')
+
 
     @staticmethod
     def run_raw(cmd: str):
