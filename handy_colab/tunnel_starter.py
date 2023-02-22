@@ -128,7 +128,7 @@ class GenericTunnel:
         rclone_dir.mkdir(parents=True, exist_ok=True)
 
         # Copy rclone config to the directory
-        shutil.copyfile(rclone_conf_path, rclone_dir)
+        shutil.copyfile(rclone_conf_path, rclone_dir / 'rclone.conf')
 
         # Onedrive mount
         mount_dir = '/content/onedrive'
