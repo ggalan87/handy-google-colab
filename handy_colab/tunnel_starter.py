@@ -135,7 +135,7 @@ class GenericTunnel:
         drive_path = Path(mount_dir)
         drive_path.mkdir(exist_ok=True)
 
-        self.run_raw_background(f'rclone --vfs-cache-mode writes mount onedrive: {mount_dir}')
+        self.run_raw_background(f'rclone --vfs-cache-max-size 30GB --vfs-cache-mode full mount onedrive: {mount_dir}')
 
 
     @staticmethod
